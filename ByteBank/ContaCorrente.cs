@@ -36,6 +36,7 @@ namespace ByteBank
             }
         }
 
+        public int ContadorTransferenciasNaoPermitidas { get; private set; }
 
         public ContaCorrente(int agencia, int numero)
         {
@@ -74,6 +75,16 @@ namespace ByteBank
 
         public bool Transferir(double valor, ContaCorrente contaDestino)
         {
+            try
+            {
+                Sacar(valor);
+            }
+            catch (SaldoInsuficienteException ex)
+            {
+                ContadorTransferenciasNaoPermitidas++;
+                throw new OperacaoFinanceiraException("Operação não realizada.", ex); ;
+
+            }
             if (_saldo < valor)
             {
                 return false;
