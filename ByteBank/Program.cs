@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace ByteBank
 {
@@ -17,10 +14,30 @@ namespace ByteBank
 
         private static void CarregarContas()
         {
-            LeitorDeArquivo leitor = new LeitorDeArquivo("contas.txt");
-            leitor.LerProximaLinha();
-            leitor.LerProximaLinha();
-            leitor.Fechar();
+            using (LeitorDeArquivo leitor = new LeitorDeArquivo("contas.txt"))
+            {
+                try
+                {
+
+                    leitor.LerProximaLinha();
+                    leitor.LerProximaLinha();
+
+
+                }
+                catch (IOException e)
+                {
+
+                    Console.WriteLine("Exceção do tipo IOException capturada e tratada!");
+                }
+                finally
+                {
+                    leitor.Dispose();
+                }
+            }
+
+
+            
+
         }
 
         private static void TestaInnerException()
