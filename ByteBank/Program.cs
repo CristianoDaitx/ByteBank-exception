@@ -10,8 +10,23 @@ namespace ByteBank
     {
         static void Main(string[] args)
         {
+            CarregarContas();
+            //Metodo();
+            Console.ReadLine();
+        }
+
+        private static void CarregarContas()
+        {
+            LeitorDeArquivo leitor = new LeitorDeArquivo("contas.txt");
+            leitor.LerProximaLinha();
+            leitor.LerProximaLinha();
+            leitor.Fechar();
+        }
+
+        private static void TestaInnerException()
+        {
             try
-            
+
             {
                 ContaCorrente conta = new ContaCorrente(5235, 52665);
                 ContaCorrente conta2 = new ContaCorrente(5245, 52425);
@@ -36,13 +51,7 @@ namespace ByteBank
                 Console.WriteLine(ex.InnerException.Message); ;
                 Console.WriteLine(ex.InnerException.StackTrace); ;
             }
-
-
-
             Console.WriteLine(ContaCorrente.TaxaOperacao);
-
-
-            Console.ReadLine();
         }
     }
 }
